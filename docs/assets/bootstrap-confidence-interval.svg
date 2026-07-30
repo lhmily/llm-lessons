@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" width="720" height="420" role="img">
+  <title>Bootstrap confidence interval</title>
+  <desc>A histogram of resampled mean scores with red boundaries marking the central ninety-five percent interval.</desc>
+  <rect width="720" height="420" fill="#ffffff"/>
+  <g font-family="system-ui, sans-serif" fill="#172033">
+    <text x="360" y="28" text-anchor="middle" font-size="20" font-weight="700">Bootstrap means</text>
+    <line x1="80" y1="350" x2="670" y2="350" stroke="#475569" stroke-width="2"/>
+    <line x1="80" y1="350" x2="80" y2="45" stroke="#475569" stroke-width="2"/>
+    <text x="375" y="400" text-anchor="middle" font-size="16">Resampled mean score</text>
+    <text x="22" y="200" text-anchor="middle" font-size="16" transform="rotate(-90 22 200)">Frequency</text>
+    <rect x="105" y="343.9" width="34" height="6.1" fill="#0f766e" opacity="0.85"/>
+    <rect x="153" y="325.6" width="34" height="24.4" fill="#0f766e" opacity="0.85"/>
+    <rect x="201" y="289.0" width="34" height="61.0" fill="#0f766e" opacity="0.85"/>
+    <rect x="249" y="222.0" width="34" height="128.0" fill="#0f766e" opacity="0.85"/>
+    <rect x="297" y="151.8" width="34" height="198.2" fill="#0f766e" opacity="0.85"/>
+    <rect x="345" y="100.0" width="34" height="250.0" fill="#0f766e" opacity="0.85"/>
+    <rect x="393" y="151.8" width="34" height="198.2" fill="#0f766e" opacity="0.85"/>
+    <rect x="441" y="222.0" width="34" height="128.0" fill="#0f766e" opacity="0.85"/>
+    <rect x="489" y="289.0" width="34" height="61.0" fill="#0f766e" opacity="0.85"/>
+    <rect x="537" y="325.6" width="34" height="24.4" fill="#0f766e" opacity="0.85"/>
+    <rect x="585" y="343.9" width="34" height="6.1" fill="#0f766e" opacity="0.85"/>
+    <line x1="170" y1="350" x2="170" y2="75" stroke="#dc2626" stroke-width="3" stroke-dasharray="6 4"/>
+    <line x1="570" y1="350" x2="570" y2="75" stroke="#dc2626" stroke-width="3" stroke-dasharray="6 4"/>
+    <text x="170" y="65" text-anchor="middle" font-size="13" fill="#dc2626">2.5%</text>
+    <text x="570" y="65" text-anchor="middle" font-size="13" fill="#dc2626">97.5%</text>
+    <path d="M170 385 L570 385" stroke="#dc2626" stroke-width="3"/>
+    <text x="370" y="408" text-anchor="middle" font-size="14" fill="#dc2626">central 95% interval</text>
+  </g>
+</svg>

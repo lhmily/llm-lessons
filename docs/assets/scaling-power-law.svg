@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" width="720" height="420" role="img">
+  <title>Synthetic power-law scaling curve</title>
+  <desc>Loss decreases toward a floor of one as relative compute increases from one to sixty-four.</desc>
+  <rect width="720" height="420" fill="#ffffff"/>
+  <g font-family="system-ui, sans-serif" fill="#172033">
+    <text x="360" y="28" text-anchor="middle" font-size="20" font-weight="700">Synthetic scaling curve</text>
+    <line x1="80" y1="350" x2="670" y2="350" stroke="#475569" stroke-width="2"/>
+    <line x1="80" y1="350" x2="80" y2="45" stroke="#475569" stroke-width="2"/>
+    <text x="375" y="400" text-anchor="middle" font-size="16">Relative compute (log₂ spacing)</text>
+    <text x="22" y="200" text-anchor="middle" font-size="16" transform="rotate(-90 22 200)">Loss</text>
+    <line x1="80" y1="350" x2="670" y2="350" stroke="#94a3b8" stroke-dasharray="6 5"/>
+    <text x="655" y="340" text-anchor="end" font-size="13">floor = 1</text>
+    <polyline points="80.0,80.0 178.3,159.1 276.7,215.0 375.0,254.5 473.3,282.5 571.7,302.3 670.0,316.2" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <circle cx="80.0" cy="80.0" r="5" fill="#2563eb"/>
+    <circle cx="178.3" cy="159.1" r="5" fill="#2563eb"/>
+    <circle cx="276.7" cy="215.0" r="5" fill="#2563eb"/>
+    <circle cx="375.0" cy="254.5" r="5" fill="#2563eb"/>
+    <circle cx="473.3" cy="282.5" r="5" fill="#2563eb"/>
+    <circle cx="571.7" cy="302.3" r="5" fill="#2563eb"/>
+    <circle cx="670.0" cy="316.2" r="5" fill="#2563eb"/>
+    <text x="80.0" y="372" text-anchor="middle" font-size="12">1</text>
+    <text x="178.3" y="372" text-anchor="middle" font-size="12">2</text>
+    <text x="276.7" y="372" text-anchor="middle" font-size="12">4</text>
+    <text x="375.0" y="372" text-anchor="middle" font-size="12">8</text>
+    <text x="473.3" y="372" text-anchor="middle" font-size="12">16</text>
+    <text x="571.7" y="372" text-anchor="middle" font-size="12">32</text>
+    <text x="670.0" y="372" text-anchor="middle" font-size="12">64</text>
+    <text x="110" y="70" font-size="14" fill="#2563eb">loss = 1 + 2 × compute⁻⁰·⁵</text>
+  </g>
+</svg>
