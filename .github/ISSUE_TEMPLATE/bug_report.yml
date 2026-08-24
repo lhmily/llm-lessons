@@ -1,0 +1,60 @@
+name: Bug report
+description: Report incorrect code, tests, setup behavior, or lesson output
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve LLM Lessons. Please remove secrets or private data from logs.
+
+  - type: input
+    id: location
+    attributes:
+      label: Lesson or file
+      description: Where did you encounter the problem?
+      placeholder: lessons/07_attention or tests/test_integration.py
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the behavior and why it seems incorrect.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How can we reproduce it?
+      description: Include the command and the smallest useful example.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Include your operating system, Python version, and PyTorch version.
+      placeholder: macOS 15, Python 3.11.11, PyTorch 2.6.0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for the same problem.
+          required: true
+        - label: I used the locked environment created by `uv sync --locked --dev`.
+          required: true

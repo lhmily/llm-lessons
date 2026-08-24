@@ -116,7 +116,11 @@ def test_quantitative_assets_are_reproducible():
         text=True,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    for name in ("scaling-power-law.svg", "bootstrap-confidence-interval.svg"):
+    for name in (
+        "llm-lessons-overview.svg",
+        "scaling-power-law.svg",
+        "bootstrap-confidence-interval.svg",
+    ):
         text = (ROOT / "docs" / "assets" / name).read_text()
         assert "<title>" in text and "<desc>" in text
 
