@@ -3,6 +3,7 @@ import torch
 
 def cosine_similarity(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
     """Return cosine similarity along the last dimension."""
+
     raise NotImplementedError("TODO: normalize and take a dot product")
 
 
