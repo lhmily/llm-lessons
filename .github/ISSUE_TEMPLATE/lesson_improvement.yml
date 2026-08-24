@@ -1,0 +1,51 @@
+name: Lesson improvement
+description: Suggest a clearer explanation, example, diagram, or exercise
+title: "[Lesson]: "
+labels: [documentation, enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Suggestions from learners at every experience level are welcome.
+
+  - type: input
+    id: lesson
+    attributes:
+      label: Lesson
+      description: Which lesson or section would this improve?
+      placeholder: Lesson 07 — Attention, Mental model
+    validations:
+      required: true
+
+  - type: textarea
+    id: difficulty
+    attributes:
+      label: What is unclear or missing?
+      description: Describe where a learner may get stuck or what could be more useful.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested improvement
+      description: Explain the example, wording, visual, experiment, or exercise you would add or change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Intended learning outcome
+      description: What should a learner understand or be able to do afterward?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for a similar suggestion.
+          required: true
+        - label: The proposal remains CPU-friendly and does not require an API key or paid service.
+          required: true

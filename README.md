@@ -1,10 +1,39 @@
 # LLM Lessons
 
-**Python 3.11+** · **PyTorch 2.2+** · **Managed with uv** · **CPU friendly** · **28 tests** · **MIT License**
+<a href="https://github.com/lhmily/llm-lessons/actions/workflows/ci.yml"><img src="https://github.com/lhmily/llm-lessons/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+<a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&amp;logoColor=white" alt="Python 3.11 or newer"></a>
+<a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-2.2%2B-EE4C2C?logo=pytorch&amp;logoColor=white" alt="PyTorch 2.2 or newer"></a>
+<a href="#curriculum"><img src="https://img.shields.io/badge/Lessons-18-7C3AED" alt="18 lessons"></a>
+<a href="#runtime-and-hardware"><img src="https://img.shields.io/badge/Hardware-CPU%20friendly-0F766E" alt="CPU friendly"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
 
-Build a small language model from first principles with PyTorch. The course starts with tensors and gradients, derives every major Transformer component, trains a tiny GPT, and ends with fine-tuning, evaluation, alignment, and efficient inference.
+<p align="center">
+  <img src="docs/assets/llm-lessons-overview.svg" alt="An 18-lesson path from tensor foundations through a tiny GPT to training, alignment, and inference">
+</p>
 
-Everything runs on small, local data. No API key, pretrained model, paid service, GPU, or network download is required after installing the Python dependencies.
+Learn how language models work by **building a tiny GPT from first principles** with Python and PyTorch. Across 18 illustrated, tested lessons, you will move from tensors and gradients to attention, Transformer blocks, training, fine-tuning, evaluation, alignment, and efficient inference.
+
+**No GPU, API key, pretrained model, paid service, or prior machine-learning knowledge is required.** Everything runs on small, local data; after the initial dependency installation, the course works offline on an ordinary CPU.
+
+**[Start Lesson 1][lesson-1]** · **[View the curriculum](#curriculum)** · **[Set up the project](#quick-start)** · **[How lessons work](#how-each-lesson-works)**
+
+## Why this course
+
+- **From first principles:** derive and implement the operations instead of hiding them behind a model framework.
+- **Executable, not just explanatory:** every lesson pairs illustrated theory with a starter exercise, reference solution, and tests.
+- **A complete learning path:** connect low-level tensor shapes to TinyGPT, post-training, and inference rather than studying isolated snippets.
+- **Accessible hardware:** run every required exercise on a CPU with small, deterministic inputs.
+
+## Quick start
+
+```bash
+git clone https://github.com/lhmily/llm-lessons.git
+cd llm-lessons
+uv sync --locked --dev
+uv run pytest lessons/01_tensors_and_shapes/test_exercise.py
+```
+
+The starter test initially fails with `NotImplementedError` by design. Read [Lesson 1][lesson-1], complete its three `TODO`s, then run it again. See [Setup with uv](#setup-with-uv) for verification and troubleshooting details.
 
 ## What you will build
 
@@ -188,6 +217,14 @@ A hidden sequence is `(B, T, D)`, language-model logits are `(B, T, V)`, and spl
 
 Lesson tests use tiny tensors and finish on an ordinary CPU. Lesson 11's training smoke test uses only a one-layer, width-16 model. Longer experiments are optional; validate the small version before increasing model size.
 
+## Contributing and releases
+
+Found a confusing explanation, incorrect result, or useful experiment? Read [CONTRIBUTING.md](CONTRIBUTING.md) to set up the project and propose a focused improvement. Planned release notes are recorded in the [changelog](CHANGELOG.md).
+
+If these lessons help you understand language models, consider starring the repository—it helps other learners discover the course.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+[lesson-1]: lessons/01_tensors_and_shapes/README.md
