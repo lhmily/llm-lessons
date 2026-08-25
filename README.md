@@ -1,7 +1,7 @@
 # LLM Lessons
 
 <a href="https://github.com/lhmily/llm-lessons/actions/workflows/ci.yml"><img src="https://github.com/lhmily/llm-lessons/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
-<a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&amp;logoColor=white" alt="Python 3.11 or newer"></a>
+<a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.14%2B-3776AB?logo=python&amp;logoColor=white" alt="Python 3.14 or newer"></a>
 <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-2.2%2B-EE4C2C?logo=pytorch&amp;logoColor=white" alt="PyTorch 2.2 or newer"></a>
 <a href="#curriculum"><img src="https://img.shields.io/badge/Lessons-18-7C3AED" alt="18 lessons"></a>
 <a href="#runtime-and-hardware"><img src="https://img.shields.io/badge/Hardware-CPU%20friendly-0F766E" alt="CPU friendly"></a>
@@ -95,7 +95,7 @@ You should know basic Python: functions, classes, lists, and loops. Prior machin
 
 | Requirement | Version or guidance | Required? |
 |---|---|:---:|
-| Python | 3.11 or newer | Yes |
+| Python | 3.14 or newer | Yes |
 | [uv](https://docs.astral.sh/uv/) | Recent stable version | Yes |
 | PyTorch | 2.2 or newer; installed from `uv.lock` | Yes |
 | NumPy | 2.0 or newer; installed from `uv.lock` | Yes |
