@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import re
 import struct
 import subprocess
@@ -272,3 +273,43 @@ def test_built_site_has_indexable_metadata_and_complete_sitemap(tmp_path):
             if not resolved.exists():
                 broken.append((page.relative_to(output), raw_target))
     assert not broken
+    assert all(
+        "static.cloudflareinsights.com/beacon.min.js" not in page.read_text() for page in pages
+    )
+
+
+def test_cloudflare_analytics_is_injected_only_with_a_token(tmp_path):
+    output = tmp_path / "site"
+    prepare(DEFAULT_OUTPUT)
+    environment = os.environ.copy()
+    environment["CLOUDFLARE_WEB_ANALYTICS_TOKEN"] = "synthetic-test-token"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "mkdocs",
+            "build",
+            "--strict",
+            "--site-dir",
+            str(output),
+        ],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        env=environment,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+
+    pages = [output / "index.html"] + [
+        output / "lessons" / lesson.slug / "index.html" for lesson in SITE_LESSONS
+    ]
+    for page in pages:
+        text = page.read_text()
+        beacons = re.findall(
+            r'<script defer src="https://static\.cloudflareinsights\.com/beacon\.min\.js"\s+'
+            r"data-cf-beacon='([^']+)'></script>",
+            text,
+        )
+        assert len(beacons) == 1
+        assert json.loads(beacons[0]) == {"token": "synthetic-test-token"}

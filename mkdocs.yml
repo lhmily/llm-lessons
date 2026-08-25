@@ -48,6 +48,7 @@ validation:
     unrecognized_links: warn
 
 extra:
+  cloudflare_web_analytics_token: !ENV [CLOUDFLARE_WEB_ANALYTICS_TOKEN, ""]
   homepage: https://lhmily.github.io/
   social:
     - icon: material/home
