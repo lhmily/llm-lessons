@@ -94,12 +94,13 @@ body {
   width: 2rem;
   height: 2rem;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--llm-blue) 48%, transparent);
   border-radius: 0.65rem;
-  color: var(--llm-blue);
-  background: color-mix(in srgb, var(--llm-blue) 11%, transparent);
-  font-family: var(--md-code-font-family);
-  font-size: 0.72rem;
+}
+
+.brand-mark img {
+  display: block;
+  width: 2rem;
+  height: 2rem;
 }
 
 .brand-divider {

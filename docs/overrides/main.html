@@ -4,7 +4,9 @@
   <header class="md-header md-header--shadow" data-md-component="header">
     <nav class="md-header__inner md-grid" aria-label="Header">
       <a class="brand-home" href="https://lhmily.github.io/" aria-label="Go to lhmily home">
-        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span class="brand-mark" aria-hidden="true">
+          <img src="{{ 'assets/branding/lemon.svg' | url }}" alt="">
+        </span>
         <span>lhmily</span>
       </a>
       <span class="brand-divider" aria-hidden="true">/</span>
@@ -36,6 +38,11 @@
 
 {% block extrahead %}
   {{ super() }}
+  <link rel="icon" href="{{ 'assets/branding/lemon.svg' | url }}" type="image/svg+xml">
+  <link rel="icon" href="{{ 'assets/branding/favicon.png' | url }}" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="{{ 'assets/branding/favicon.ico' | url }}">
+  <link rel="apple-touch-icon" href="{{ 'assets/branding/apple-touch-icon.png' | url }}" sizes="180x180">
+  <link rel="manifest" href="{{ 'site.webmanifest' | url }}">
   {% if page and page.meta %}
     {% set canonical_url = config.site_url ~ page.url %}
     <meta name="robots" content="index, follow">

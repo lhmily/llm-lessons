@@ -30,4 +30,5 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.ruff.lint.per-file-ignores]
 "scripts/build_site.py" = ["E501"]
+"scripts/generate_branding_assets.py" = ["E501"]
 "scripts/generate_documentation_assets.py" = ["E501"]
