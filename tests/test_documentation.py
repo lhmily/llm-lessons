@@ -3,8 +3,10 @@ from __future__ import annotations
 import importlib.util
 import json
 import re
+import struct
 import subprocess
 import sys
+import zlib
 from pathlib import Path
 from urllib.parse import urlsplit
 from xml.etree import ElementTree
@@ -140,6 +142,38 @@ def test_quantitative_assets_are_reproducible():
         assert "<title>" in text and "<desc>" in text
 
 
+def test_branding_assets_are_reproducible_and_valid():
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "generate_branding_assets.py"), "--check"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+
+    branding = ROOT / "docs" / "assets" / "branding"
+    svg = (branding / "lemon.svg").read_text()
+    assert "<title>" in svg and "<desc>" in svg
+
+    expected_png_sizes = {
+        "favicon.png": 32,
+        "apple-touch-icon.png": 180,
+        "icon-192.png": 192,
+        "icon-512.png": 512,
+    }
+    for name, expected_size in expected_png_sizes.items():
+        data = (branding / name).read_bytes()
+        assert data.startswith(b"\x89PNG\r\n\x1a\n")
+        width, height = struct.unpack(">II", data[16:24])
+        assert (width, height) == (expected_size, expected_size)
+        assert zlib.crc32(data) != 0
+
+    ico = (branding / "favicon.ico").read_bytes()
+    reserved, image_type, count = struct.unpack("<HHH", ico[:6])
+    assert (reserved, image_type, count) == (0, 1, 3)
+
+
 def test_root_links_to_all_lessons_in_order():
     text = (ROOT / "README.md").read_text()
     linked = re.findall(r"\(lessons/(\d{2})_[^/]+/README\.md\)", text)
@@ -192,6 +226,20 @@ def test_built_site_has_indexable_metadata_and_complete_sitemap(tmp_path):
         assert len(descriptions) == 1 and 50 <= len(descriptions[0]) <= 160
         assert len(canonicals) == 1 and canonicals[0].startswith(SITE_URL)
         assert 'content="index, follow"' in text
+        assert 'href="https://lhmily.github.io/"' in text
+        assert 'href="https://lhmily.github.io/llm-lessons/"' in text
+        assert "assets/branding/lemon.svg" in text
+        assert "assets/branding/favicon.png" in text
+        assert "assets/branding/favicon.ico" in text
+        assert "assets/branding/apple-touch-icon.png" in text
+        assert "site.webmanifest" in text
+        assert any(
+            stylesheet in text
+            for stylesheet in (
+                'href="stylesheets/course.css"',
+                'href="../../stylesheets/course.css"',
+            )
+        )
         assert structured_data
         assert json.loads(structured_data.group(1))["@type"] == "LearningResource"
 

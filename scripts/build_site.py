@@ -182,7 +182,7 @@ def rewrite_markdown(text: str, *, lesson: Lesson | None = None) -> str:
 
     if lesson is not None:
         index = lesson.number - 1
-        links = ["[Course overview](../../index.md)"]
+        links = ["[lhmily Home](https://lhmily.github.io/)", "[Course overview](../../index.md)"]
         if index > 0:
             previous = LESSONS[index - 1]
             links.append(
@@ -217,12 +217,7 @@ def prepare(output: Path) -> None:
         destination.write_text(front_matter(lesson.title, lesson.description) + body)
 
     shutil.copytree(ROOT / "docs" / "assets", output / "assets")
-
-    styles = output / "stylesheets" / "extra.css"
-    styles.parent.mkdir()
-    styles.write_text(
-        ".md-typeset h1 { font-weight: 700; }\n.md-typeset img { border-radius: 0.4rem; }\n"
-    )
+    shutil.copytree(ROOT / "docs" / "stylesheets", output / "stylesheets")
 
     mathjax = output / "javascripts" / "mathjax.js"
     mathjax.parent.mkdir()
@@ -232,6 +227,29 @@ def prepare(output: Path) -> None:
         "processHtmlClass: 'arithmatex'}};\n"
     )
 
+    manifest = {
+        "name": "LLM Lessons",
+        "short_name": "LLM Lessons",
+        "description": "Build a tiny GPT from first principles with Python and PyTorch.",
+        "start_url": "/llm-lessons/",
+        "scope": "/llm-lessons/",
+        "display": "standalone",
+        "background_color": "#090d18",
+        "theme_color": "#090d18",
+        "icons": [
+            {
+                "src": "assets/branding/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+            },
+            {
+                "src": "assets/branding/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+            },
+        ],
+    }
+    (output / "site.webmanifest").write_text(json.dumps(manifest, indent=2) + "\n")
     (output / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n")
 
 

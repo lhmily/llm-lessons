@@ -10,6 +10,7 @@ strict: true
 use_directory_urls: true
 
 nav:
+  - lhmily Home ↗: https://lhmily.github.io/
   - Course overview: index.md
   - Foundations:
       - Tensors and Shapes: lessons/tensors-and-shapes/index.md
@@ -47,14 +48,18 @@ validation:
     unrecognized_links: warn
 
 extra:
+  homepage: https://lhmily.github.io/
   social:
+    - icon: material/home
+      link: https://lhmily.github.io/
+      name: lhmily Home
     - icon: fontawesome/brands/github
       link: https://github.com/lhmily/llm-lessons
       name: LLM Lessons on GitHub
   generator: false
 
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/course.css
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
@@ -62,6 +67,7 @@ extra_javascript:
 theme:
   name: material
   custom_dir: docs/overrides
+  favicon: assets/branding/lemon.svg
   language: en
   features:
     - content.code.copy
