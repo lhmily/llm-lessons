@@ -53,10 +53,7 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at 9% 5%, color-mix(in srgb, var(--llm-blue) 11%, transparent), transparent 27rem),
-    radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--llm-violet) 10%, transparent), transparent 30rem),
-    var(--llm-bg);
+  background: var(--llm-bg);
 }
 
 .md-header {
