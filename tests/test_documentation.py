@@ -192,6 +192,15 @@ def test_built_site_has_indexable_metadata_and_complete_sitemap(tmp_path):
         assert len(descriptions) == 1 and 50 <= len(descriptions[0]) <= 160
         assert len(canonicals) == 1 and canonicals[0].startswith(SITE_URL)
         assert 'content="index, follow"' in text
+        assert 'href="https://lhmily.github.io/"' in text
+        assert 'href="https://lhmily.github.io/llm-lessons/"' in text
+        assert any(
+            stylesheet in text
+            for stylesheet in (
+                'href="stylesheets/course.css"',
+                'href="../../stylesheets/course.css"',
+            )
+        )
         assert structured_data
         assert json.loads(structured_data.group(1))["@type"] == "LearningResource"
 

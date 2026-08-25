@@ -1,5 +1,39 @@
 {% extends "base.html" %}
 
+{% block header %}
+  <header class="md-header md-header--shadow" data-md-component="header">
+    <nav class="md-header__inner md-grid" aria-label="Header">
+      <a class="brand-home" href="https://lhmily.github.io/" aria-label="Go to lhmily home">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>lhmily</span>
+      </a>
+      <span class="brand-divider" aria-hidden="true">/</span>
+      <a class="course-home" href="{{ config.site_url | url }}" aria-label="Go to LLM Lessons overview">
+        LLM Lessons
+      </a>
+      <label class="md-header__button md-icon" for="__drawer">
+        {% include ".icons/material/menu.svg" %}
+      </label>
+      <div class="header-spacer"></div>
+      {% if "search" in config.plugins %}
+        <label class="md-header__button md-icon" for="__search">
+          {% include ".icons/material/magnify.svg" %}
+        </label>
+        {% include "partials/search.html" %}
+      {% endif %}
+      {% if config.theme.palette %}
+        {% include "partials/palette.html" %}
+      {% endif %}
+      {% if config.repo_url %}
+        <a class="header-source" href="{{ config.repo_url }}" aria-label="View LLM Lessons on GitHub">
+          {% include ".icons/fontawesome/brands/github.svg" %}
+          <span>Source</span>
+        </a>
+      {% endif %}
+    </nav>
+  </header>
+{% endblock %}
+
 {% block extrahead %}
   {{ super() }}
   {% if page and page.meta %}
