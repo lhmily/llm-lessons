@@ -39,6 +39,8 @@ jobs:
         run: uv run python scripts/build_site.py
 
       - name: Build static site
+        env:
+          CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ secrets.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
         run: uv run mkdocs build --strict
 
       - name: Configure GitHub Pages
