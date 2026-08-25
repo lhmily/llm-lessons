@@ -15,7 +15,7 @@ Learn how language models work by **building a tiny GPT from first principles** 
 
 **No GPU, API key, pretrained model, paid service, or prior machine-learning knowledge is required.** Everything runs on small, local data; after the initial dependency installation, the course works offline on an ordinary CPU.
 
-**[Start Lesson 1][lesson-1]** · **[View the curriculum](#curriculum)** · **[Set up the project](#quick-start)** · **[How lessons work](#how-each-lesson-works)**
+**[Read the course online](https://lhmily.github.io/llm-lessons/)** · **[Start Lesson 1][lesson-1]** · **[View the curriculum](#curriculum)** · **[Set up the project](#quick-start)** · **[How lessons work](#how-each-lesson-works)**
 
 ## Why this course
 

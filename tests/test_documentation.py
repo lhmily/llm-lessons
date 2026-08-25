@@ -1,11 +1,26 @@
 from __future__ import annotations
 
+import importlib.util
+import json
 import re
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
+from xml.etree import ElementTree
 
 ROOT = Path(__file__).parents[1]
+SITE_SCRIPT = ROOT / "scripts" / "build_site.py"
+SITE_SPEC = importlib.util.spec_from_file_location("build_site", SITE_SCRIPT)
+assert SITE_SPEC is not None and SITE_SPEC.loader is not None
+SITE_MODULE = importlib.util.module_from_spec(SITE_SPEC)
+sys.modules[SITE_SPEC.name] = SITE_MODULE
+SITE_SPEC.loader.exec_module(SITE_MODULE)
+DEFAULT_OUTPUT = SITE_MODULE.DEFAULT_OUTPUT
+SITE_LESSONS = SITE_MODULE.LESSONS
+SITE_URL = SITE_MODULE.SITE_URL
+prepare = SITE_MODULE.prepare
+
 LESSONS = sorted(
     path for path in (ROOT / "lessons").iterdir() if path.is_dir() and path.name[:2].isdigit()
 )
@@ -129,3 +144,83 @@ def test_root_links_to_all_lessons_in_order():
     text = (ROOT / "README.md").read_text()
     linked = re.findall(r"\(lessons/(\d{2})_[^/]+/README\.md\)", text)
     assert linked == [f"{number:02d}" for number in range(1, 19)]
+
+
+def test_site_metadata_is_unique_and_search_friendly():
+    assert [lesson.number for lesson in SITE_LESSONS] == list(range(1, 19))
+    assert len({lesson.source for lesson in SITE_LESSONS}) == len(SITE_LESSONS)
+    assert len({lesson.slug for lesson in SITE_LESSONS}) == len(SITE_LESSONS)
+    assert len({lesson.title for lesson in SITE_LESSONS}) == len(SITE_LESSONS)
+    assert len({lesson.description for lesson in SITE_LESSONS}) == len(SITE_LESSONS)
+    assert all(50 <= len(lesson.description) <= 160 for lesson in SITE_LESSONS)
+
+
+def test_built_site_has_indexable_metadata_and_complete_sitemap(tmp_path):
+    output = tmp_path / "site"
+    prepare(DEFAULT_OUTPUT)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "mkdocs",
+            "build",
+            "--strict",
+            "--site-dir",
+            str(output),
+        ],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+
+    pages = [output / "index.html"] + [
+        output / "lessons" / lesson.slug / "index.html" for lesson in SITE_LESSONS
+    ]
+    titles: set[str] = set()
+    for page in pages:
+        text = page.read_text()
+        title = re.search(r"<title>(.*?)</title>", text, re.DOTALL)
+        descriptions = re.findall(r'<meta name="description" content="([^"]+)">', text)
+        canonicals = re.findall(r'<link rel="canonical" href="([^"]+)">', text)
+        structured_data = re.search(
+            r'<script type="application/ld\+json">\s*(.*?)\s*</script>', text, re.DOTALL
+        )
+        assert title and title.group(1) not in titles
+        titles.add(title.group(1))
+        assert len(descriptions) == 1 and 50 <= len(descriptions[0]) <= 160
+        assert len(canonicals) == 1 and canonicals[0].startswith(SITE_URL)
+        assert 'content="index, follow"' in text
+        assert structured_data
+        assert json.loads(structured_data.group(1))["@type"] == "LearningResource"
+
+    robots = (output / "robots.txt").read_text()
+    assert "Allow: /" in robots
+    assert f"Sitemap: {SITE_URL}sitemap.xml" in robots
+
+    namespace = {"sitemap": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    sitemap = ElementTree.parse(output / "sitemap.xml")
+    locations = {node.text for node in sitemap.findall("sitemap:url/sitemap:loc", namespace)}
+    expected = {
+        SITE_URL,
+        *(f"{SITE_URL}lessons/{lesson.slug}/" for lesson in SITE_LESSONS),
+    }
+    assert expected <= locations
+
+    broken: list[tuple[Path, str]] = []
+    for page in pages:
+        text = page.read_text()
+        for raw_target in re.findall(r'(?:href|src)="([^"]+)"', text):
+            target = urlsplit(raw_target)
+            if target.scheme or raw_target.startswith(("#", "mailto:", "javascript:", "data:")):
+                continue
+            path = target.path.removeprefix("/llm-lessons/")
+            resolved = (
+                output / path if target.path.startswith("/llm-lessons/") else page.parent / path
+            )
+            if path.endswith("/") or not resolved.suffix:
+                resolved /= "index.html"
+            if not resolved.exists():
+                broken.append((page.relative_to(output), raw_target))
+    assert not broken
