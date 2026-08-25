@@ -1,0 +1,110 @@
+site_name: LLM Lessons
+site_description: Build a tiny GPT from first principles with 18 illustrated, tested Python and PyTorch lessons.
+site_url: https://lhmily.github.io/llm-lessons/
+repo_url: https://github.com/lhmily/llm-lessons
+repo_name: lhmily/llm-lessons
+edit_uri: ""
+docs_dir: .site-docs
+site_dir: site
+strict: true
+use_directory_urls: true
+
+nav:
+  - Course overview: index.md
+  - Foundations:
+      - Tensors and Shapes: lessons/tensors-and-shapes/index.md
+      - Autograd and Optimization: lessons/autograd-and-optimization/index.md
+      - Neural Networks: lessons/neural-networks/index.md
+      - Next-Token Prediction: lessons/next-token-prediction/index.md
+  - Text representation:
+      - Tokenization: lessons/tokenization/index.md
+      - Embeddings and Positions: lessons/embeddings-and-positions/index.md
+  - Transformer internals:
+      - Attention: lessons/attention/index.md
+      - Multi-Head Attention: lessons/multi-head-attention/index.md
+      - Transformer Block: lessons/transformer-block/index.md
+      - Tiny GPT: lessons/tiny-gpt/index.md
+  - Training and generation:
+      - Training: lessons/training/index.md
+      - Generation: lessons/text-generation/index.md
+      - KV Cache: lessons/kv-cache/index.md
+  - Advanced practice:
+      - Scaling and Compute: lessons/scaling-and-compute/index.md
+      - Fine-Tuning and LoRA: lessons/fine-tuning-and-lora/index.md
+      - Evaluation: lessons/evaluation/index.md
+      - Alignment with DPO: lessons/alignment-with-dpo/index.md
+      - Inference and Serving: lessons/inference-and-serving/index.md
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: relative_to_docs
+    unrecognized_links: warn
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/lhmily/llm-lessons
+      name: LLM Lessons on GitHub
+  generator: false
+
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  language: en
+  features:
+    - content.code.copy
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: true
+
+plugins:
+  - search
