@@ -4,7 +4,7 @@ Thank you for helping make language-model internals easier to learn. Contributio
 
 ## Set up the project
 
-You need Python 3.11 or newer and [uv](https://docs.astral.sh/uv/).
+You need Python 3.14 or newer and [uv](https://docs.astral.sh/uv/).
 
 ```bash
 git clone https://github.com/lhmily/llm-lessons.git
